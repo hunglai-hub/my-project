@@ -9,6 +9,11 @@ import jakarta.persistence.Table;
 
 import lombok.Data;
 
+
+/**
+ * ユーザ情報テーブル
+ */
+
 @Entity
 @Table(name ="0010_UserInfo")
 @Data
