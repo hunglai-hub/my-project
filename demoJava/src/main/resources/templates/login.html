@@ -4,24 +4,30 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ログイン画面</title>
+	<link rel="stylesheet" type="text/css" href="/css/login.css">
 </head>
 
 <body>
-	<h2>ログイン画面</h2>
-	<span th:text="${errorMsg}"></span>
-	<form th:action="@{/login}" method="post" th:object="${loginForm}">
-		<div>
-			<label>ログインID</label>
-			<input type="text" th:field="*{loginID}">
+	<div class="container">
+		<h2>ログイン画面</h2>
+		<span class="error-message" th:text="${errorMsg}"></span>
+		<form th:action="@{/login}" method="post" th:object="${loginForm}">
+			<div class="form-group">
+				<label for="loginID">ログインID</label>
+				<input type="text" id="loginID" th:field="*{loginID}" required>
+			</div>
+			<div class="form-group">
+				<label for="password">パスワード</label>
+				<input type="password" id="password" th:field="*{password}" required>
+			</div>
+			<div class="form-group">
+				<input type="submit" value="ログイン">
+			</div>
+		</form>
+		<div class="signup-link">
+			<a th:href="@{/signup}">ユーザ登録</a>
 		</div>
-		<div>
-			<label>パスワード</label>
-			<input type="password" th:field="*{password}">
-		</div>
-		<div>
-			<input type="submit" value="ログイン">
-		</div>
-	</form>
+	</div>
 </body>
 
 </html>

@@ -1,7 +1,5 @@
 package com.example.demo.entity;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -28,10 +26,4 @@ public class UserInfo {
 	@Column(name = "EMAIL")
 	private String email;
 	
-	@Column(name = "ROLE")
-	private String role;
-	
-	@Column(name = "CREATED_AT")
-	private LocalDate  createdAt;
-
 }

@@ -1,0 +1,88 @@
+/* 全体のレイアウト */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+/* コンテナ全体 */
+.container {
+    background-color: white;
+    padding: 50px; /* Increased padding */
+    border-radius: 10px; /* Slightly larger border radius */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    width: 500px; /* Increased width */
+    text-align: center;
+}
+
+/* タイトル */
+h2 {
+    font-size: 40px; /* Larger title font size */
+    margin-bottom: 30px; /* Increased margin */
+}
+
+/* エラーメッセージ */
+.error-message {
+    color: red;
+    margin-bottom: 30px; /* Increased margin */
+    display: block;
+    font-size: 18px; /* Larger error message font size */
+}
+
+/* フォーム項目 */
+.form-group {
+    margin-bottom: 30px; /* Increased margin */
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 12px; /* Increased margin */
+    font-size: 18px; /* Larger label font size */
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 15px; /* Larger padding */
+    font-size: 20px; /* Larger font size */
+    border: 1px solid #ccc;
+    border-radius: 6px; /* Slightly larger border radius */
+    box-sizing: border-box;
+}
+
+/* 送信ボタン */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px; /* Larger padding */
+    font-size: 22px; /* Larger font size */
+    cursor: pointer;
+    border-radius: 6px; /* Slightly larger border radius */
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+/* ユーザ登録リンク */
+.signup-link {
+    margin-top: 20px; /* Increased margin */
+}
+
+.signup-link a {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 18px; /* Larger font size */
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
