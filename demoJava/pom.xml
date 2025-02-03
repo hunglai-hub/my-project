@@ -90,15 +90,29 @@
 		</dependency>
 		<!-- DBアクセス-->
 		<dependency>
-        <groupId>com.microsoft.sqlserver</groupId>
-        <artifactId>mssql-jdbc</artifactId>
+           <groupId>com.microsoft.sqlserver</groupId>
+           <artifactId>mssql-jdbc</artifactId>
         </dependency>
         <!-- Dozer Mapper-->
         <dependency>
-        <groupId>net.sf.dozer</groupId>
-        <artifactId>dozer</artifactId>
-        <version>5.5.1</version>
+           <groupId>net.sf.dozer</groupId>
+           <artifactId>dozer</artifactId>
+           <version>5.5.1</version>
         </dependency>
+        <!-- Bootstrap -->
+        <dependency>
+           <groupId>org.webjars</groupId>
+           <artifactId>bootstrap</artifactId>
+           <version>5.3.3</version>
+        </dependency>
+        <!-- Jquery -->
+        <dependency>
+           <groupId>org.webjars</groupId>
+           <artifactId>jquery</artifactId>
+           <version>3.7.1</version>
+        </dependency>
+
+
 	</dependencies>
 
 	<build>
