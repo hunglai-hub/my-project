@@ -42,7 +42,6 @@ public class LoginController {
 	//ログイン処理
 	@PostMapping("/login")
 	public String login(Model model, LoginForm form) {
-		
 		var userInfo = service.searchUserByID(form.getLoginID());
 		var isCorrectAccount = userInfo.isPresent() 
 				&& passwordEncoder.matches(form.getPassword(), userInfo.get().getPassword());
