@@ -32,7 +32,7 @@ public class SignupService {
 	
 	//ユーザ情報テーブル 新規登録
 	public Optional<UserInfo> registUserInfo(SignupForm form){
-		var userInfoExistedOpt = repository.findById(form.getLoginID());
+		var userInfoExistedOpt = repository.findById(form.getLoginId());
 		//同じログインIDがすでにある場合
 		if(userInfoExistedOpt.isPresent()) {
 			return Optional.empty();

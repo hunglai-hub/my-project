@@ -4,31 +4,38 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ログイン画面</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
-	<script type="text/javascript" th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
 </head>
 
 <body>
+	<div th:insert="~{common/sourceList::sourceList}"></div>
+	<div th:replace="~{common/messageIcon::messageIcon}"></div>
 	<div class="container-fluid">
 		<h2>ログイン画面</h2>
-		<span class="error-message" th:text="${errorMsg}"></span>
-		<form th:action="@{/login}" method="post" th:object="${loginForm}">
-			<div class="form-group">
-				<div class="col-4 col-md-2 col-xxl-2">
-				<p><label for="loginID">ログインID</label>
-				<input class="form-control" type="text" id="loginID" th:field="*{loginID}" required>
-				</div>
-				<div class="col-4 col-md-2 col-xxl-2">
-				<p><label for="password">パスワード</label>
-				<input class="form-control" type="password" id="password" th:field="*{password}" required>
-				</div>
-				<p><input class="btn btn-primary" type="submit" value="ログイン">
+		<div class="alert alert-danger d-flex align-items-center" role="alert" th:if="${errorMsg != null}">
+			<svg class="bi flex-shrink-0 me-2" width="24" height="24" fill="currentColor">
+				<use xlink:href="#exclamation-triangle-fill" />
+			</svg>
+			<div>
+				<span class="error-message" th:text="${errorMsg}"></span>
 			</div>
-		</form>
-		<div class="signup-link">
-			<a th:href="@{/signup}">▶ユーザ登録はコチラ</a>
 		</div>
-	</div>
+			<form th:action="@{/login}" method="post" th:object="${loginForm}">
+				<div class="form-group">
+					<div class="col-4 col-md-2 col-xxl-2">
+						<p><label for="loginId">ログインID</label>
+							<input class="form-control" type="text" id="loginId" th:field="*{loginId}" required>
+					</div>
+					<div class="col-4 col-md-2 col-xxl-2">
+						<p><label for="password">パスワード</label>
+							<input class="form-control" type="password" id="password" th:field="*{password}" required>
+					</div>
+					<p><input class="btn btn-primary" type="submit" value="ログイン">
+				</div>
+			</form>
+			<div class="signup-link">
+				<a th:href="@{/signup}">▶ユーザ登録はコチラ</a>
+			</div>
+		</div>
 </body>
 
 </html>

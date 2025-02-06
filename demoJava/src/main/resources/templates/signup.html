@@ -4,25 +4,35 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ユーザ登録画面</title>
-	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
-	<script type="text/javascript" th:src="@{/webjars/jquery/3.7.1/jquery.min.js}"></script>
+
 </head>
 
 <body>
+	<div th:insert="~{common/sourceList::sourceList}"></div>
+	<div th:replace="~{common/messageIcon::messageIcon}"></div>
 	<div class="container-fluid">
 		<h2>ユーザ登録画面</h2>
-		<span th:text="${message}"></span>
+		<div class="alert d-flex align-items-center" th:classappend="|${isError?'alert-danger' : 'alert-primary'}|"
+			role="alert" th:if="${message != null}">
+			<svg class="bi flex-shrink-0 me-2" width="24" height="24" fill="currentColor">
+				<use xlink:href="#exclamation-triangle-fill" th:if="${isError}" />
+				<use xlink:href="#info-fill" th:unless="${isError}" />
+			</svg>
+			<span th:text="${message}"></span>
+		</div>
 		<!-- ユーザ登録フォーム -->
 		<form th:action="@{/signup}" method="post" th:object="${signupForm}">
 			<div class="form-group">
 				<div class="col-4 col-md-2 col-xxl-2">
-					<p><label for="loginID">ログインID</label>
-						<input class="form-control" type="text" id="loginID" th:field="*{loginID}" required>
+					<p><label for="loginId">ログインID</label>
+						<input class="form-control" type="text" id="loginId" th:field="*{loginId}" required>
 				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('loginId')}" th:errors="*{loginId}"></span>
 				<div class="col-4 col-md-2 col-xxl-2">
 					<p><label for="password">パスワード</label>
 						<input class="form-control" type="password" id="password" th:field="*{password}" required>
 				</div>
+				<span class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 				<div class="col-4 col-md-2 col-xxl-2">
 					<p><label for="email">メールアドレス(任意)</label>
 						<input class="form-control" type="email" id="email" th:field="*{email}">

@@ -18,7 +18,7 @@ import lombok.Data;
 public class UserInfo {
 	@Id
 	@Column(name = "LOGIN_ID")
-	private String loginID;
+	private String loginId;
 	
 	@Column(name = "PASSWORD")
 	private String password;

@@ -5,10 +5,14 @@ import java.util.Optional;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.constant.MessageConst;
+import com.example.demo.constant.SignupMessage;
+import com.example.demo.constant.UrlConst;
 import com.example.demo.entity.UserInfo;
 import com.example.demo.form.SignupForm;
 import com.example.demo.service.SignupService;
@@ -32,7 +36,7 @@ public class SignupController {
 	private final MessageSource messageSource;
 	
 	//初期表示
-	@GetMapping("/signup")
+	@GetMapping(UrlConst.SIGNUP)
 	public String view(Model model, SignupForm form) {
 		
 		return "signup";
@@ -40,12 +44,27 @@ public class SignupController {
 	}
 	
 	//ユーザ登録処理
-	@PostMapping("/signup")
-	public void signup(Model model, SignupForm form) {
+	@PostMapping(UrlConst.SIGNUP)
+	public void signup(Model model,@Validated SignupForm form, BindingResult bdResult) {
+		if(bdResult.hasErrors()) {
+			editGuideMessage(model,MessageConst.FORM_ERROR,true);
+			return;
+		}
 		var userInfoOpt = service.registUserInfo(form);
-			var message = AppUtil.getMessage(messageSource, judgeMessageKey(userInfoOpt));
-			model.addAttribute("message", message);
-		
+		var signupMessage = judgeMessageKey(userInfoOpt);
+			editGuideMessage(model,signupMessage.getMessageId(),signupMessage.isError());
+	}
+	
+	/**
+	 * 画面に表示するガイドメッセージ
+	 * @param model
+	 * @param message
+	 * @param isError
+	 */
+	private void editGuideMessage(Model model,String messageId, boolean isError ) {
+		var message = AppUtil.getMessage(messageSource, messageId);
+		model.addAttribute("message", message);
+		model.addAttribute("isError", isError);
 	}
 	
 	/**
@@ -53,12 +72,12 @@ public class SignupController {
 	 * @param userInfo
 	 * @return
 	 */
-	private String judgeMessageKey(Optional<UserInfo> userInfo) {
+	private SignupMessage judgeMessageKey(Optional<UserInfo> userInfoOpt) {
 		
-		if(userInfo.isEmpty()) {
-			return MessageConst.SIGNUP_EXISTED_LOGIN_ID;
+		if(userInfoOpt.isEmpty()) {
+			return SignupMessage.EXISTED_LOGIN_ID;
 		}else {
-			return MessageConst.SIGNUP_REGIST_SUCCEED;
+			return SignupMessage.SUCCEED;
 		}
 		
 	}

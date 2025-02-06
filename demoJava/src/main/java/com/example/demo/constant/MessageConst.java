@@ -6,6 +6,9 @@ package com.example.demo.constant;
  */
 
 public class MessageConst {
+
+	//共通:入力内容誤り
+	public static String FORM_ERROR = "common.formError";
 	
 	//ログイン画面:入力内容誤り
 	public static String LOGIN_WRONG_INPUT = "login.wrongInput";
