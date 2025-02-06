@@ -38,7 +38,7 @@ public class LoginController {
 	//Session情報
 	private final HttpSession session;
 	
-	//ログインエラー表示
+	//初期表示
 	@GetMapping(UrlConst.LOGIN)
 	public String view(Model model, LoginForm form) {
 		
@@ -46,7 +46,7 @@ public class LoginController {
 		
 	}
 	
-	//初期表示
+	//ログインエラー表示
 	@GetMapping(value = UrlConst.LOGIN, params = "error")
 	public String viewWithError(Model model, LoginForm form) {
 		var errorInfo = (Exception)session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
