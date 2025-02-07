@@ -2,6 +2,7 @@ package com.example.demo.authentication;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
@@ -15,7 +16,6 @@ import com.example.demo.repository.UserInfoRepository;
 
 import lombok.RequiredArgsConstructor;
 
-
 /**
  * ユーザ情報生成
  */
@@ -27,10 +27,12 @@ public class UserDetailServiceImpl implements UserDetailsService {
 	private final UserInfoRepository repository;
 	
 	//アカウントロックの継続時間
-	private final int LOCKING_TIME = 1;
+	@Value("${security.locking-time}")  //@Valueでapplication.propertiesの値を取得
+	private int locking_time;
 	
 	//ログイン失敗の上限回数
-	private final int LOCKING_BORDER_COUNT = 3;
+	@Value("${security.locking-border-count}")  //@Valueでapplication.propertiesの値を取得
+	private int locking_border_count;
 
 	@Override
 	public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
@@ -38,11 +40,11 @@ public class UserDetailServiceImpl implements UserDetailsService {
 				.orElseThrow(() -> new UsernameNotFoundException(loginId));
 		
 		var accountLockedTime = userInfo.getAccountLockedTime();
-		var isAccountLocked = accountLockedTime != null && accountLockedTime.plusHours(LOCKING_TIME).isAfter(LocalDateTime.now());
+		var isAccountLocked = accountLockedTime != null && accountLockedTime.plusHours(locking_time).isAfter(LocalDateTime.now());
 		
 		return User.withUsername(userInfo.getLoginId())
 				.password(userInfo.getPassword())
-				.roles("user")
+				.authorities(userInfo.getRole())
 				.disabled(userInfo.isDisabled())
 				.accountLocked(isAccountLocked)
 				.build();
@@ -56,7 +58,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 		var loginId = event.getAuthentication().getName();
 		repository.findById(loginId).ifPresent(userInfo -> {
 			repository.save(userInfo.incrementLoginFailureCount());
-			var isReachFailureCount = userInfo.getLoginFailureCount() == LOCKING_BORDER_COUNT;
+			var isReachFailureCount = userInfo.getLoginFailureCount() == locking_border_count;
 			if(isReachFailureCount) {
 				repository.save(userInfo.updateAccountLocked());
 			}

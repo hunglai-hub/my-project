@@ -9,14 +9,19 @@ import lombok.Data;
 @Data
 public class SignupForm {
 	
-	@Length(min = 8, max = 20)
+	@Length(min = 3, max = 20)
 	private String loginId;
 
-	@Length(min = 8, max = 20)
+	@Length(min = 3, max = 20)
 	private String password;
 	
 	//@Length(min = 10, max = 40)
 	private String email;
 	
+	private String role;
+	
+	private String createdAt;
+	
+	private int isDisabled = 0;
 
 }
